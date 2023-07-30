@@ -65,17 +65,16 @@ const Detailscreen = ({ route, navigation }) => {
               backgroundColor: "#181a20",
             }}
           >
-            {/* <Image
-           source={{ uri: randomgif }}
+            <Image
+           source={{ uri: 'https://media.tenor.com/3i--UTlTQvIAAAAi/hasher-happy-sticker.gif' }}
            style={{
              height: height*0.3,
              width: width*0.6,
              alignSelf: "center",
              resizeMode: "cover",
              marginBottom: height * 0.15,
-            //  backgroundColor:'red'
            }}
-         /> */}
+         />
             <View
               style={{
                 flexDirection: "row",
@@ -87,20 +86,10 @@ const Detailscreen = ({ route, navigation }) => {
                 style={{
                   fontSize: 30,
                   color: "white",
-                  //  fontFamily: "Inter-Black",
                 }}
               >
-                Loding
+                Loding .....
               </Text>
-              {/* <Image
-             source={require("../assets/loding.gif")}
-             style={{
-               height: height * 0.13,
-               resizeMode: "center",
-               width: 80,
-               bottom: 50,
-             }}
-           /> */}
             </View>
           </View>
         ) : (
@@ -308,7 +297,7 @@ const Detailscreen = ({ route, navigation }) => {
                       fontSize: 22,
                       // fontFamily: "Inter-Black",
                       marginStart: width * 0.07,
-                      marginTop: height * 0.02,
+                      marginTop: height * 0.01,
                       marginBottom: height * 0.02,
                       width: width * 0.88,
                     }}
@@ -374,7 +363,7 @@ const Detailscreen = ({ route, navigation }) => {
                 </View>
               ) : (
                 <View>
-                  <Image source={require('../assets/piga.png')}style={{height: height*0.3,
+                  <Image source={{uri: 'https://tenor.com/view/sedih-gif-26108642'}}style={{height: height*0.3,
                         width: width*0.94,
                         alignSelf: 'center',
                         marginTop: height*0.06}} />

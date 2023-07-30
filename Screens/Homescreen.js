@@ -12,7 +12,7 @@ import {
   StatusBar,
   Modal,
 } from "react-native";
-import React, { useEffect, useState, useRef,useCallback } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 
 // for all apis
 import {
@@ -39,17 +39,15 @@ import { Recentanime } from "../Loidngfile/loding";
 import { Trendinglo } from "../Loidngfile/loding";
 import { Trendingposter } from "../Loidngfile/loding";
 
-
-// import fonts from out sides 
-import {useFonts} from 'expo-font'
-
+// import fonts from out sides
+import { useFonts } from "expo-font";
 
 // get device all width and height
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 // starting of the code execution
 
-const Homescreen = ({navigation}) => {
+const Homescreen = ({ navigation }) => {
   //TODO:  main use effect
   useEffect(() => {
     gettranding();
@@ -71,6 +69,7 @@ const Homescreen = ({navigation}) => {
 
   // FIXME: get tranding anime from api
   const gettranding = async () => {
+    // setloding(true)
     let data = await fetchtrending();
     const newdata = await data.results;
     setresults(newdata);
@@ -97,14 +96,11 @@ const Homescreen = ({navigation}) => {
     setloadrecent(false);
   };
 
+  // load font from out side
+  // const [isLoaded] = useFonts({
+  //     "gg": require("../assets/fonts/NunitoSans_7pt_Condensed-Black.ttf"),
 
-
-// load font from out side 
-// const [isLoaded] = useFonts({
-//     "gg": require("../assets/fonts/NunitoSans_7pt_Condensed-Black.ttf"),
-
-//   });
-
+  //   });
 
   //FIXME:  array of the 10 for bottom page button
   const paginationArray = Array.from({ length: 10 }, (_, index) => index + 1);
@@ -129,11 +125,23 @@ const Homescreen = ({navigation}) => {
               color: "white",
               textAlign: "center",
               alignSelf: "center",
-            //   fontFamily: "gg",
-              fontWeight: '400'
+              //   fontFamily: "gg",
+              fontWeight: "400",
             }}
           >
-            Amnitrix
+            Amni
+          </Text>
+          <Text
+            style={{
+              fontSize: 30,
+              color: "red",
+              textAlign: "center",
+              alignSelf: "center",
+              //   fontFamily: "gg",
+              fontWeight: "400",
+            }}
+          >
+            Flix
           </Text>
 
           {/* TODO: hamberger menu icon at the top  */}
@@ -195,7 +203,7 @@ const Homescreen = ({navigation}) => {
                             <Image
                               source={{ uri: item.cover }}
                               style={{
-                                height: height * 0.15,
+                                height: height * 0.156,
                                 width: width * 0.9,
                                 margin: width * 0.05,
                                 borderRadius: 20,
@@ -227,12 +235,12 @@ const Homescreen = ({navigation}) => {
                 </Text>
 
                 <TouchableOpacity
-                  // onPress={() =>
-                  //   navigation.navigate("SeeAll", {
-                  //     source: "recentep",
-                  //     data: recentep,
-                  //   })
-                  // }
+                  onPress={() =>
+                    navigation.navigate("SeeAll", {
+                      source: "result",
+                      data: result,
+                    })
+                  }
                   style={{
                     width: width * 0.3,
                     height: 25,
@@ -278,6 +286,7 @@ const Homescreen = ({navigation}) => {
                           key={item}
                           animation="fadeInRight"
                           useNativeDriver
+                          delay={0.4}
                         >
                           <View>
                             <TouchableOpacity
@@ -337,12 +346,12 @@ const Homescreen = ({navigation}) => {
               </Text>
 
               <TouchableOpacity
-                // onPress={() =>
-                //   navigation.navigate("SeeAll", {
-                //     source: "recentep",
-                //     data: recentep,
-                //   })
-                // }
+                onPress={() =>
+                  navigation.navigate("SeeAll", {
+                    source: "recentep",
+                    data: recentep,
+                  })
+                }
                 style={{
                   width: width * 0.3,
                   height: 25,
@@ -387,6 +396,7 @@ const Homescreen = ({navigation}) => {
                         key={item}
                         animation="fadeInRight"
                         useNativeDriver
+                        delay={0.5}
                       >
                         <View>
                           <TouchableOpacity
@@ -497,10 +507,10 @@ const Homescreen = ({navigation}) => {
                         <Animatable.View
                           key={item}
                           animation="fadeInUp"
-                          // delay={0.2}
+                          delay={0.2}
                           useNativeDriver
                         >
-                          <ScrollView key={item.id}>
+                          {/* <ScrollView key={item.id}>
                             <View style={{ flexDirection: "row" }}>
                               <Image
                                 source={{ uri: item.image }}
@@ -534,7 +544,7 @@ const Homescreen = ({navigation}) => {
                                   item.title.romaji :
                                   item.title.english
                               } */}
-                                    {item.title.english || item.title.romaji}
+                          {/* {item.title.english || item.title.romaji}
                                   </Text>
                                   <Text
                                     style={{
@@ -545,10 +555,10 @@ const Homescreen = ({navigation}) => {
                                   >
                                     {item.releaseDate + " " || "?"}- rating
                                     {" " + item.rating || "NA"}
-                                  </Text>
+                                  </Text> */}
 
-                                  {/* hr border  */}
-                                  <View
+                          {/* hr border  */}
+                          {/* <View
                                     style={{
                                       borderBottomWidth: 1,
                                       backgroundColor: "grey",
@@ -603,12 +613,89 @@ const Homescreen = ({navigation}) => {
                                         color="white"
                                         style={{ alignSelf: "center" }}
                                       /> */}
-                                    </View>
+                          {/* </View>
                                   </TouchableOpacity>
                                 </View>
                               </View>
                             </View>
-                          </ScrollView>
+                          </ScrollView>  */}
+
+                          <TouchableOpacity
+                            onPress={() =>
+                              navigation.navigate("Details", { item })
+                            }
+                          >
+                            <View
+                              style={{
+                                backgroundColor: "#12181c",
+                                margin: 13,
+                                height: height * 0.3,
+                                width: width * 0.9,
+                                alignSelf: "center",
+                                borderRadius: 10,
+                                flexDirection: "row",
+                                // justifyContent: 'center'
+                              }}
+                            >
+                              <Image
+                                source={{ uri: item.image }}
+                                resizeMode="cover"
+                                style={{
+                                  height: height * 0.27,
+                                  width: width * 0.38,
+                                  start: 13,
+                                  borderRadius: 13,
+                                  backgroundColor: "blue",
+                                  top: 12,
+                                  // justifyContent: "center",
+                                  // alignItems: 'center'
+                                }}
+                              ></Image>
+                              <View
+                                style={{
+                                  // backgroundColor: "blue",
+                                  height: height * 0.07,
+                                  width: width * 0.4,
+                                  start: width * 0.1,
+                                  top: height * 0.02,
+                                }}
+                              >
+                                <Text
+                                  numberOfLines={2}
+                                  style={{ color: "white", fontSize: 18 }}
+                                >
+                                  {item.title.english || item.title.romaji}
+                                </Text>
+                                <Text style={{ color: "grey", marginTop: 10 }}>
+                                  {item.releaseDate + " " || "?"} rating -{" "}
+                                  {item.rating ? item.rating : "NA"}
+                                </Text>
+                                <View
+                                  style={{
+                                    borderBottomWidth: 1,
+                                    backgroundColor: "grey",
+                                    marginTop: height * 0.01,
+                                    borderColor: "grey",
+                                    width: width * 0.4,
+                                  }}
+                                />
+                                <View
+                                  style={{
+                                    height: height * 0.13,
+                                    width: width * 0.4,
+                                    top: 13,
+                                  }}
+                                >
+                                  <Text
+                                    numberOfLines={4}
+                                    style={{ color: "grey", fontSize: 14 }}
+                                  >
+                                    {item.description}{" "}
+                                  </Text>
+                                </View>
+                              </View>
+                            </View>
+                          </TouchableOpacity>
                         </Animatable.View>
                       );
                     }}
@@ -679,6 +766,15 @@ const Homescreen = ({navigation}) => {
                     );
                   }}
                 />
+                <Text
+                  style={{
+                    color: "white",
+                    textAlign: "center",
+                    marginBottom: 30,
+                  }}
+                >
+                  App is currently under development
+                </Text>
               </View>
             </View>
           </View>

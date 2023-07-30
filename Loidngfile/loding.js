@@ -1,4 +1,4 @@
-import { View, Text, FlatList, Dimensions } from "react-native";
+import { View, Text, FlatList, Dimensions,Image } from "react-native";
 import React from "react";
 
 const width = Dimensions.get("window").width;
@@ -103,6 +103,17 @@ export const Recentanime = () => {
                   backgroundColor: "grey",
                 }}
               ></View>
+               <View
+              style={{
+                color: "white",
+                fontSize: width * 0.03,
+                width: width * 0.2,
+                height: height * 0.016,
+               marginStart: width*0.047,
+                marginTop: height*0.01,
+                backgroundColor: "grey",
+              }}
+            ></View>
             </View>
           );
         }}
@@ -134,8 +145,20 @@ export const Trendinglo = () => {
                 color: "white",
                 fontSize: width * 0.031,
                 width: width * 0.3,
-                height: height * 0.02,
-                alignSelf: "center",
+                height: height * 0.016,
+                alignSelf: 'center',
+                
+                backgroundColor: "grey",
+              }}
+            ></View>
+             <View
+              style={{
+                color: "white",
+                fontSize: width * 0.03,
+                width: width * 0.2,
+                height: height * 0.016,
+               marginStart: width*0.047,
+                marginTop: height*0.01,
                 backgroundColor: "grey",
               }}
             ></View>
@@ -175,3 +198,18 @@ export const Trendingposter = () => {
     </View>
   );
 };
+
+
+
+export const lodingscreen = () => {
+return(
+  <View style={{flex: 1,backgroundColor: '#181a20'}}>
+    <View>
+      <Image 
+       
+      />
+    </View>
+  
+  </View>
+)
+}

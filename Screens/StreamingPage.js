@@ -18,7 +18,7 @@ const height = Dimensions.get("window").height;
 
 
 const selected = route.params.item;
-console.log(selected.url)
+// console.log(selected.url)
 
 
 useEffect(()=> {
@@ -33,7 +33,7 @@ else{
 StatusBar.setHidden(true);
 
 return () => {
-  ScreenOrientation.unlockAsync();
+  // ScreenOrientation.unlockAsync();
  
 };
 

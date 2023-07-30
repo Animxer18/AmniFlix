@@ -11,8 +11,10 @@ import Homescreen from "./Screens/Homescreen";
 import Detailscreen from "./Screens/Detailscreen";
 import Searchscreen from "./Screens/Searchscreen";
 import Linkpage from "./Screens/Linkpage";
-// import SeeAll from "./Screens/Seeall";
 import StreamingPage from "./Screens/StreamingPage";
+import Gaga from "./Screens/gaga";
+
+
 
 const Stack = createStackNavigator();
 
@@ -28,7 +30,7 @@ export default function App() {
         <Stack.Screen name="Details" component={Detailscreen} />
         <Stack.Screen name="Search" component={Searchscreen} />
         <Stack.Screen name="Link" component={Linkpage} />
-        {/* <Stack.Screen name ="Seeall" component={SeeAll}/> */}
+        <Stack.Screen name ="SeeAll" component={Gaga}/>
        <Stack.Screen name="Stream" component={StreamingPage}/>
       </Stack.Navigator>
     </NavigationContainer>

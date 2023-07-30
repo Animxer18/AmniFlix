@@ -13,14 +13,14 @@ const Linkpage = ({ navigation, route }) => {
   const [loding ,setloding] =useState(true);
   // getting a item from a detail scrennn moreless geting a ep id from detail
   const selected = route.params.item;
-  console.log("Console is fire")
+  // console.log("Console is fire")
 
   const geteplinks = async (kk) => {
     const ff = await fetchwatch(kk);
     const ll = await ff;
     setdata(ll.sources);
     setloding(false)
-    // console.log(ll.sources);
+    console.log(ll);
   };
 
   useEffect(() => {
@@ -48,12 +48,43 @@ const Linkpage = ({ navigation, route }) => {
       />
 
 { loding ? (
-<View style={{alignSelf: 'center'}}>
-    <Text style={{fontSize:30,color: 'white'}}>
-        loding .....
-    </Text>
+ <View
+ style={{
+   height: height,
+   width: width,
+   justifyContent: "center",
+   backgroundColor: "#181a20",
+ }}
+>
+ <Image
+source={{ uri: 'https://media.tenor.com/3i--UTlTQvIAAAAi/hasher-happy-sticker.gif' }}
+style={{
+  height: height*0.3,
+  width: width*0.6,
+  alignSelf: "center",
+  resizeMode: "cover",
+  marginBottom: height * 0.15,
+}}
+/>
+ <View
+   style={{
+     flexDirection: "row",
+     justifyContent: "center",
+     bottom: height * 0.1,
+   }}
+ >
+   <Text
+     style={{
+       fontSize: 30,
+       color: "white",
+     }}
+   >
+     Loding .....
+   </Text>
+ </View>
 </View>
 ): (
+
       <View
         style={{
           width: width * 0.8,
@@ -65,10 +96,25 @@ const Linkpage = ({ navigation, route }) => {
         }}
       >
   
+
+ 
+ 
+        <View>
+        {
+  data === null ? (
+    <View style={{alignSelf: 'center',justifyContent: 'center'}}>
+      <Text style={{fontSize: 20,color: 'white'}}>
+        Not Available Contect dev
+      </Text>
+    </View>
+    ) : (
         <FlatList
           data={data}
           renderItem={({ item }) => {
             return (
+
+         
+
               <TouchableOpacity onPress={()=> navigation.navigate("Stream",{item})}>
                 <View
                   style={{
@@ -95,10 +141,13 @@ const Linkpage = ({ navigation, route }) => {
                   </Text>
                 </View>
               </TouchableOpacity>
+          
             );
           }}
         />
-
+      )}
+        </View>
+ 
       </View>
      )} 
        </View>
