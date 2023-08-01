@@ -10,9 +10,9 @@ Amniflix is an innovative and feature-rich anime streaming application built usi
 cater specifically to the avid anime community. This cutting-edge
 mobile app provides users with a seamless and immersive anime-watching experience on both Android and iOS devices.
 
-
-
-
+‎ 
+‎ 
+‎ 
 
 𝗧𝗲𝗰𝗵𝗻𝗶𝗰𝗮𝗹 𝗢𝘃𝗲𝗿𝘃𝗶𝗲𝘄:
 
