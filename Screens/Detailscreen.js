@@ -18,6 +18,8 @@ import { LinearGradient } from "expo-linear-gradient";
 import { info } from "../API/api";
 import { fetchwatch } from "../API/api";
 
+import { gogoinfo } from "../API/gogo";
+
 const Detailscreen = ({ route, navigation }) => {
   const selected = route.params.item;
   const ani = selected.id;
@@ -35,7 +37,7 @@ const Detailscreen = ({ route, navigation }) => {
   const [watch, setwatch] = useState([]);
 
   const getanimeinfo = async (gg) => {
-    let hh = await info(gg);
+    let hh = await gogoinfo(gg);
     const kk = await hh;
     setdata(kk);
     setloding(false);
@@ -44,7 +46,7 @@ const Detailscreen = ({ route, navigation }) => {
   };
 
   const nulldata = () => {
-    console.log("data is null ");
+    // console.log("data is null ");
   };
 
   //   handle press to go another screen
@@ -66,15 +68,17 @@ const Detailscreen = ({ route, navigation }) => {
             }}
           >
             <Image
-           source={{ uri: 'https://media.tenor.com/3i--UTlTQvIAAAAi/hasher-happy-sticker.gif' }}
-           style={{
-             height: height*0.3,
-             width: width*0.6,
-             alignSelf: "center",
-             resizeMode: "cover",
-             marginBottom: height * 0.15,
-           }}
-         />
+              source={{
+                uri: "https://media.tenor.com/3i--UTlTQvIAAAAi/hasher-happy-sticker.gif",
+              }}
+              style={{
+                height: height * 0.3,
+                width: width * 0.6,
+                alignSelf: "center",
+                resizeMode: "cover",
+                marginBottom: height * 0.15,
+              }}
+            />
             <View
               style={{
                 flexDirection: "row",
@@ -169,7 +173,7 @@ const Detailscreen = ({ route, navigation }) => {
                     bottom: height * 0.1,
                   }}
                 >
-                  {data.title?.english || data.title?.romaji}
+                  {data.title || data.title?.english || data.title?.romaji}
                 </Text>
                 <Text
                   style={{
@@ -178,7 +182,7 @@ const Detailscreen = ({ route, navigation }) => {
                     bottom: height * 0.09,
                   }}
                 >
-                  {data.releaseDate + " -" || "NA"} rating - {data.id || "NA"}
+                  Releasedate - {data.releaseDate + " " || "NA"} {data.subOrDub}
                 </Text>
               </View>
 
@@ -207,168 +211,7 @@ const Detailscreen = ({ route, navigation }) => {
               >
                 {data.description}
               </Text>
-
-              {data &&
-              data.recommendations &&
-              data.recommendations.length > 0 ? (
-                <View>
-                  <Text
-                    style={{
-                      color: "white",
-                      fontSize: 22,
-                      // fontFamily: "Inter-Black",
-                      marginStart: width * 0.07,
-                      bottom: height * 0.01,
-                      width: width * 0.88,
-                    }}
-                  >
-                    Relations
-                  </Text>
-
-                  <View style={{ marginBottom: 0 }}>
-                    <ScrollView>
-                      <FlatList
-                        showsHorizontalScrollIndicator={false}
-                        horizontal
-                        data={data.relations}
-                        renderItem={({ item }) => {
-                          return (
-                            <TouchableOpacity onPress={() => handlepress(item)}>
-                              <View>
-                                <Text
-                                  style={{ color: "white", marginStart: 20 }}
-                                ></Text>
-                                <Image
-                                  source={{ uri: item.image }}
-                                  style={{
-                                    height: height * 0.276,
-                                    width: width * 0.37,
-                                    borderRadius: 14,
-                                    margin: 16,
-                                    bottom: height * 0.025,
-                                    backgroundColor: "grey",
-                                  }}
-                                />
-                                <Text
-                                  style={{
-                                    alignSelf: "center",
-                                    // fontFamily: "Inter-Black",
-                                    color: "white",
-                                    bottom: height * 0.026,
-                                  }}
-                                >
-                                  {item.title?.english
-                                    ? item.title.english.length > 18
-                                      ? item.title.english.slice(0, 20) + "..."
-                                      : item.title.english
-                                    : ""}
-                                </Text>
-
-                                <Text
-                                  style={{
-                                    alignSelf: "center",
-                                    color: "grey",
-                                    bottom: height * 0.026,
-                                  }}
-                                >
-                                  {item.relationType}
-                                </Text>
-                              </View>
-                            </TouchableOpacity>
-                          );
-                        }}
-                      />
-                    </ScrollView>
-                  </View>
-                </View>
-              ) : (
-                <View>
-                  <Text></Text>
-                </View>
-              )}
-
-              {data &&
-              data.recommendations &&
-              data.recommendations.length > 0 ? (
-                <View>
-                  <Text
-                    style={{
-                      color: "white",
-                      fontSize: 22,
-                      // fontFamily: "Inter-Black",
-                      marginStart: width * 0.07,
-                      marginTop: height * 0.01,
-                      marginBottom: height * 0.02,
-                      width: width * 0.88,
-                    }}
-                  >
-                    Recommendations
-                  </Text>
-
-                  <View style={{ marginBottom: 0 }}>
-                    <ScrollView>
-                      <FlatList
-                        showsHorizontalScrollIndicator={false}
-                        horizontal
-                        data={data.recommendations}
-                        renderItem={({ item }) => {
-                          return (
-                            <TouchableOpacity onPress={() => handlepress(item)}>
-                              <View>
-                                <Text
-                                  style={{ color: "white", marginStart: 20 }}
-                                ></Text>
-                                <Image
-                                  source={{ uri: item.image }}
-                                  style={{
-                                    height: height * 0.276,
-                                    width: width * 0.37,
-                                    borderRadius: 14,
-                                    margin: 16,
-                                    bottom: height * 0.025,
-                                    backgroundColor: "grey",
-                                  }}
-                                />
-                                <Text
-                                  style={{
-                                    alignSelf: "center",
-                                    // fontFamily: "Inter-Black",
-                                    color: "white",
-                                    bottom: height * 0.026,
-                                  }}
-                                >
-                                  {item.title?.english
-                                    ? item.title.english.length > 18
-                                      ? item.title.english.slice(0, 20) + "..."
-                                      : item.title.english
-                                    : ""}
-                                </Text>
-
-                                <Text
-                                  style={{
-                                    alignSelf: "center",
-                                    color: "grey",
-                                    bottom: height * 0.026,
-                                  }}
-                                >
-                                  rating -{" " + item.rating || "NA"}
-                                </Text>
-                              </View>
-                            </TouchableOpacity>
-                          );
-                        }}
-                      />
-                    </ScrollView>
-                  </View>
-                </View>
-              ) : (
-                <View>
-                  <Image source={{uri: 'https://tenor.com/view/sedih-gif-26108642'}}style={{height: height*0.3,
-                        width: width*0.94,
-                        alignSelf: 'center',
-                        marginTop: height*0.06}} />
-                </View>
-              )}
+              
 
               <Text
                 style={{
@@ -376,11 +219,12 @@ const Detailscreen = ({ route, navigation }) => {
                   fontSize: 22,
                   // fontFamily: "Inter-Black",
                   marginStart: width * 0.07,
-                  marginTop: height * 0.05,
+                  marginTop: height * 0.03,
                   marginBottom: height * 0.04,
                   width: width * 0.88,
                 }}
               >
+               
                 Watch Episodes
               </Text>
               <View>
@@ -389,15 +233,15 @@ const Detailscreen = ({ route, navigation }) => {
                     showsHorizontalScrollIndicator={false}
                     data={
                       data && data.episodes
-                        ? data.episodes.reverse()
-                        : nulldata()
+                      // ? data.episodes.reverse()
+                      // : nulldata()
                     }
                     renderItem={({ item }) => {
                       return (
                         <View>
                           <TouchableOpacity
                             onPress={() =>
-                              navigation.navigate("Link", { item })
+                              navigation.navigate("Link", { item, data })
                             }
                           >
                             <View
@@ -412,7 +256,7 @@ const Detailscreen = ({ route, navigation }) => {
                               }}
                             >
                               <Image
-                                source={{ uri: item.image }}
+                                source={{ uri: data.image }}
                                 style={{
                                   height: height * 0.13,
                                   resizeMode: "cover",
@@ -477,10 +321,15 @@ const Detailscreen = ({ route, navigation }) => {
                 ) : (
                   // print data is not availbale print ohk a
                   <View>
-                    <Image source={require('../assets/piga.png')} style={{height: height*0.3,
-                        width: width*0.94,
-                        alignSelf: 'center',
-                        marginTop: height*0.06}}/>
+                    <Image
+                      source={require("../assets/piga.png")}
+                      style={{
+                        height: height * 0.3,
+                        width: width * 0.94,
+                        alignSelf: "center",
+                        marginTop: height * 0.06,
+                      }}
+                    />
                   </View>
                 )}
               </View>
@@ -490,14 +339,9 @@ const Detailscreen = ({ route, navigation }) => {
                   App is under Devlopment Pls Stay on
                 </Text>
               </View>
-              {/* <View style={{marginBottom: 1000
-                  }}>
-    
-                  </View> */}
+           
             </View>
-            {/* <View style={{height: 200}}>
-             
-              </View> */}
+          
           </View>
         )}
       </ScrollView>

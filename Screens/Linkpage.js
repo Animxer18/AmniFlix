@@ -2,6 +2,9 @@ import { View, Text, Dimensions, Image } from "react-native";
 import React, { useEffect, useState } from "react";
 import { fetchwatch } from "../API/api";
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
+import { gogostreming } from "../API/gogo";
+
+
 
 const Linkpage = ({ navigation, route }) => {
   // getting a height and width of the screen
@@ -13,14 +16,15 @@ const Linkpage = ({ navigation, route }) => {
   const [loding ,setloding] =useState(true);
   // getting a item from a detail scrennn moreless geting a ep id from detail
   const selected = route.params.item;
+  
   // console.log("Console is fire")
 
   const geteplinks = async (kk) => {
-    const ff = await fetchwatch(kk);
+    const ff = await gogostreming(kk);
     const ll = await ff;
     setdata(ll.sources);
     setloding(false)
-    console.log(ll);
+    // console.log(ll);
   };
 
   useEffect(() => {

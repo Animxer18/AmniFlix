@@ -13,7 +13,6 @@ import {
   Modal,
 } from "react-native";
 import React, { useEffect, useState, useRef, useCallback } from "react";
-
 // for all apis
 import {
   fetchpopular,
@@ -42,24 +41,24 @@ import { Trendingposter } from "../Loidngfile/loding";
 
 // import fonts from out sides
 import { useFonts } from "expo-font";
-
+import Carousel from "react-native-snap-carousel";
 // get device all width and height
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
 // import gogo anime apis
-import {
-   gogoinfo,
-   gogotopair,
-  fetchgogorecent
-  } from "../API/gogo";
+import { gogoinfo, gogotopair, fetchgogorecent } from "../API/gogo";
 
 // starting of the code execution
 
 const Homescreen = ({ navigation }) => {
   //TODO:  main use effect
   useEffect(() => {
-    gettranding(), getpopular(), getrecentep(),getgogorecent(),getgogotrending()
+    gettranding(),
+      getpopular(),
+      getrecentep(),
+      getgogorecent(),
+      getgogotrending();
   }, []);
 
   const [result, setresults] = useState([]);
@@ -78,10 +77,10 @@ const Homescreen = ({ navigation }) => {
   // FIXME: get tranding anime from api
   const gettranding = async () => {
     // setloding(true)
-    let data = await fetchtrending();
-    const newdata = await data.results;
-    setresults(newdata);
-    setloding(false);
+    // let data = await fetchtrending();
+    // const newdata = await data.results;
+    // setresults(newdata);
+    // setloding(false);
   };
 
   // FIXME: get popular anime from api
@@ -98,10 +97,11 @@ const Homescreen = ({ navigation }) => {
 
   // FIXME: get recent anime from api
   const getrecentep = async () => {
-    let rr = await fetchrecent();
-    let vv = await rr.results;
-    setrecentep(vv);
-    setloadrecent(false);
+    // loding(true)
+    // let rr = await fetchrecent();
+    // let vv = await rr.results;
+    // setrecentep(vv);
+    // loding(false);
   };
 
   const buttons = ["zoro", "gogo", "maile"];
@@ -116,43 +116,24 @@ const Homescreen = ({ navigation }) => {
     // console.log(hh);
   };
 
-
-
-
-
-  const [gogorecent,setgogorecent] =useState([]);
-  const[gogotrending,setgogotrending ] =useState([]);
+  const [gogorecent, setgogorecent] = useState([]);
+  const [gogotrending, setgogotrending] = useState([]);
 
   // for gogo anime only
 
-  const getgogorecent = async() => {
+  const getgogorecent = async () => {
+    setloding(true);
     let oo = await fetchgogorecent();
     let ll = await oo.results;
     setgogorecent(ll);
-    console.log(gogorecent);
-    console.log("from gogo anime ")
-  }
+    setloding(false);
+  };
 
-  const getgogotrending = async() => {
-    let rr = await gogotopair()
+  const getgogotrending = async () => {
+    let rr = await gogotopair();
     let nn = await rr.results;
     setgogotrending(nn);
-    console.log(nn);
-    console.log("from gogog trening") 
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
+  };
 
   //FIXME:  array of the 10 for bottom page button
   const paginationArray = Array.from({ length: 10 }, (_, index) => index + 1);
@@ -231,47 +212,8 @@ const Homescreen = ({ navigation }) => {
           showsVerticalScrollIndicator={false}
         >
           <View>
-            <View>
-              {loding ? (
-                <View>
-                  <Trendingposter />
-                </View>
-              ) : (
-                <View>
-                  <FlatList
-                    data={result}
-                    horizontal
-                    pagingEnabled={true}
-                    showsHorizontalScrollIndicator={false}
-                    renderItem={({ item }) => {
-                      return (
-                        <Animatable.View
-                          key={item}
-                          animation="fadeInDown"
-                          delay={0.2}
-                          useNativeDriver
-                        >
-                          <View>
-                            <Image
-                              source={{ uri: item.cover }}
-                              style={{
-                                height: height * 0.156,
-                                width: width * 0.9,
-                                margin: width * 0.05,
-                                borderRadius: 20,
-                                resizeMode: "cover",
-                              }}
-                            />
-                          </View>
-                        </Animatable.View>
-                      );
-                    }}
-                  />
-                </View>
-              )}
-
-              <View style={{ flexDirection: "row" }}>
-                {buttons.map((item, index) => (
+            {/* <View style={{ flexDirection: "row" ,height: height*0.06}}> */}
+            {/* {buttons.map((item, index) => (
                   <TouchableOpacity
                     onPress={(item) => {
                       handlepress(item, index);
@@ -285,7 +227,7 @@ const Homescreen = ({ navigation }) => {
                               backgroundColor: "red",
                               flexDirection: "row",
                               margin: width * 0.04,
-                              height: height * 0.06,
+                              height: height * 0.04,
                               width: width * 0.2,
                               justifyContent: "center",
                               alignItem: "center",
@@ -296,7 +238,7 @@ const Homescreen = ({ navigation }) => {
                               backgroundColor: "black",
                               flexDirection: "row",
                               margin: width * 0.04,
-                              height: height * 0.06,
+                              height: height * 0.04,
                               width: width * 0.2,
                               justifyContent: "center",
                               alignItem: "center",
@@ -319,7 +261,78 @@ const Homescreen = ({ navigation }) => {
                     </View>
                   </TouchableOpacity>
                 ))}
+              </View> */}
+            <View>
+              {/* {loding ? (
+                <View>
+                  <Trendingposter />
+                </View>
+              ) : ( */}
+              <View>
+                {/* <Text
+                  style={{
+                    color: "white",
+                    marginTop: height * 0.01,
+                    fontSize: width * 0.065,
+                   
+                    // margin: width * 0.04,
+                  }}
+                >
+                  SeeAll
+                </Text> */}
+                <Carousel
+                  data={gogotrending}
+                  renderItem={({ item }) => {
+                    return (
+                      <Animatable.View
+                        key={item}
+                        animation="fadeInRight"
+                        useNativeDriver
+                        delay={0.5}
+                      >
+                        <TouchableOpacity
+                          onPress={() =>
+                            navigation.navigate("Details", { item })
+                          }
+                        >
+                          <Image
+                            source={{ uri: item.image }}
+                            style={{
+                              width: width * 0.52,
+                              height: height * 0.37,
+                              borderRadius: 12,
+                              marginTop: 30,
+                              backgroundColor: "grey",
+                            }}
+                          />
+                          <Text
+                            numberOfLines={2}
+                            style={{
+                              color: "white",
+                              textAlign: "center",
+                              marginTop: height * 0.02,
+                              fontSize: 17,
+                            }}
+                          >
+                            {item.title.length > 15
+                              ? item.title.slice(0, 20) + "..."
+                              : item.title}
+                          </Text>
+                        </TouchableOpacity>
+                      </Animatable.View>
+                    );
+                  }}
+                  firstItem={1}
+                  // loop={true}
+                  inactiveSlideScale={0.86}
+                  inactiveSlideOpacity={0.4}
+                  sliderWidth={width}
+                  itemWidth={width * 0.55}
+                  slideStyle={{ display: "flex", alignItems: "center" }}
+                />
               </View>
+              {/* )} */}
+
               {/* // </View> */}
 
               {/* recent anime list  */}
@@ -327,7 +340,7 @@ const Homescreen = ({ navigation }) => {
                 <Text
                   style={{
                     color: "white",
-                    marginTop: height * 0.02,
+                    marginTop: height * 0.045,
                     fontSize: width * 0.065,
                     margin: width * 0.04,
                     // fontFamily: "Inter-Black",
@@ -335,14 +348,14 @@ const Homescreen = ({ navigation }) => {
                     // fontWeight: '00'
                   }}
                 >
-                  Trending Anime
+                  Recent Anime
                 </Text>
 
                 <TouchableOpacity
                   onPress={() =>
                     navigation.navigate("SeeAll", {
-                      source: "result",
-                      data: result,
+                      source: "recent",
+                      data: gogorecent,
                     })
                   }
                   style={{
@@ -381,8 +394,8 @@ const Homescreen = ({ navigation }) => {
               ) : (
                 <View>
                   <FlatList
-                    // data={gogorecent}
-                    data={result}
+                    data={gogorecent}
+                    // data={result}
                     horizontal
                     showsHorizontalScrollIndicator={false}
                     renderItem={({ item }) => {
@@ -402,8 +415,10 @@ const Homescreen = ({ navigation }) => {
                               <Image
                                 source={{ uri: item.image }}
                                 style={{
-                                  height: height * 0.26,
-                                  width: width * 0.34,
+                                  // height: height * 0.26,
+                                  // width: width * 0.34,
+                                  width: width * 0.37,
+                                  height: height * 0.29,
                                   margin: 10,
                                   borderRadius: 14,
                                   resizeMode: "cover",
@@ -415,17 +430,19 @@ const Homescreen = ({ navigation }) => {
                                   color: "white",
                                   fontSize: width * 0.031,
                                   width: width * 0.3,
-                                  height: height * 0.025,
+                                  height: height * 0.05,
                                   marginStart: 15,
                                   textAlign: "center",
                                 }}
                               >
-                                {item.title.english || item.title.romaji}
+                                {item.title ||
+                                  item.title.english ||
+                                  item.title.romaji}
                               </Text>
-                              <Text style={{ color: "grey", marginStart: 30 }}>
-                                {item.releaseDate + " " || "?"}- rating
-                                {" " + item.rating || "NA"}
-                              </Text>
+                              {/* <Text style={{ color: "grey", marginStart: 30 }}>
+                                {item.releaseDate}- rating
+                                {" " + item.rating}
+                              </Text> */}
                             </TouchableOpacity>
                           </View>
                         </Animatable.View>
@@ -437,7 +454,7 @@ const Homescreen = ({ navigation }) => {
             </View>
 
             {/* loding recent ep is true r not  */}
-            <View style={{ justifyContent: "center" }}>
+            {/* <View style={{ justifyContent: "center" }}>
               <Text
                 style={{
                   color: "white",
@@ -483,9 +500,9 @@ const Homescreen = ({ navigation }) => {
                   }}
                 />
               </TouchableOpacity>
-            </View>
+            </View> */}
 
-            {loadrecent ? (
+            {/* {loadrecent ? (
               <View>
                 <Recentanime />
               </View>
@@ -552,156 +569,9 @@ const Homescreen = ({ navigation }) => {
                   keyExtractor={(item, index) => index.toString()}
                 />
               </View>
-            )}
+            )} */}
 
-            {/* for you  */}
-            <View>
-              <Text
-                style={{
-                  color: "white",
-                  marginTop: height * 0.05,
-                  fontSize: width * 0.065,
-                  margin: width * 0.04,
-                  // fontFamily: "Inter-Black",
-                }}
-              >
-                For You
-              </Text>
-              <TouchableOpacity
-                // onPress={() => navigation.navigate('Details')}
-                style={{
-                  width: 200,
-                  height: 25,
-                  position: "absolute",
-                  left: width * 0.84,
-
-                  top: height * 0.068,
-                }}
-              >
-                <Text
-                  style={{
-                    color: "#b3b3ff",
-                    //  fontFamily: "Inter-Black"
-                  }}
-                >
-                  see all
-                </Text>
-                <Ionicons
-                  name="arrow-forward-sharp"
-                  size={18}
-                  color="#b3b3ff"
-                  style={{
-                    position: "absolute",
-                    left: width * 0.1,
-                  }}
-                />
-              </TouchableOpacity>
-            </View>
-
-            <View>
-              {loadforyou ? (
-                <View>
-                  <Skeletant />
-                </View>
-              ) : (
-                <View>
-                  <FlatList
-                    // data={tranding}
-                    data={gogotrending}
-                    showsVerticalScrollIndicator={false}
-                    renderItem={({ item }) => {
-                      return (
-                        <Animatable.View
-                          key={item}
-                          animation="fadeInUp"
-                          delay={0.2}
-                          useNativeDriver
-                        >
-                          <TouchableOpacity
-                            onPress={() =>
-                              navigation.navigate("Details", { item })
-                            }
-                          >
-                            <View
-                              style={{
-                                backgroundColor: "#12181c",
-                                margin: 13,
-                                height: height * 0.3,
-                                width: width * 0.9,
-                                alignSelf: "center",
-                                borderRadius: 10,
-                                flexDirection: "row",
-                                // justifyContent: 'center'
-                              }}
-                            >
-                              <Image
-                                source={{ uri: item.image }}
-                                resizeMode="cover"
-                                style={{
-                                  height: height * 0.27,
-                                  width: width * 0.38,
-                                  start: 13,
-                                  borderRadius: 13,
-                                  backgroundColor: "blue",
-                                  top: 12,
-                                  // justifyContent: "center",
-                                  // alignItems: 'center'
-                                }}
-                              ></Image>
-                              <View
-                                style={{
-                                  // backgroundColor: "blue",
-                                  height: height * 0.07,
-                                  width: width * 0.4,
-                                  start: width * 0.1,
-                                  top: height * 0.02,
-                                }}
-                              >
-                                <Text
-                                  numberOfLines={2}
-                                  style={{ color: "white", fontSize: 18 }}
-                                >
-                                  {item.title|| item.title.english || item.title.romaji}
-                                </Text>
-                                <Text style={{ color: "grey", marginTop: 10 }}>
-                                  {item.releaseDate + " " || "?"} rating -{" "}
-                                  {item.rating ? item.rating : "NA"}
-                                </Text>
-                                <View
-                                  style={{
-                                    borderBottomWidth: 1,
-                                    backgroundColor: "grey",
-                                    marginTop: height * 0.01,
-                                    borderColor: "grey",
-                                    width: width * 0.4,
-                                  }}
-                                />
-                                <View
-                                  style={{
-                                    height: height * 0.13,
-                                    width: width * 0.4,
-                                    top: 13,
-                                  }}
-                                >
-                                  <Text
-                                    numberOfLines={4}
-                                    style={{ color: "grey", fontSize: 14 }}
-                                  >
-                                    {item.description}{" "}
-                                  </Text>
-                                </View>
-                              </View>
-                            </View>
-                          </TouchableOpacity>
-                        </Animatable.View>
-                      );
-                    }}
-                  />
-                </View>
-              )}
-            </View>
-
-            <View style={{ height: height * 0.4 }}>
+            {/* <View style={{ height: height * 0.4 }}>
               <View
                 style={{
                   marginTop: height * 0.03,
@@ -773,7 +643,7 @@ const Homescreen = ({ navigation }) => {
                   App is currently under development
                 </Text>
               </View>
-            </View>
+            </View> */}
           </View>
         </ScrollView>
       </View>

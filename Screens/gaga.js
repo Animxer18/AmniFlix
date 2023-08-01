@@ -16,7 +16,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import * as Animatable from "react-native-animatable";
 import { fetchrecent, fetchtrending } from "../API/api";
-
+import { fetchgogorecent } from "../API/gogo";
 const Gaga = ({ navigation, route }) => {
   const height = Dimensions.get("window").height;
   const width = Dimensions.get("window").width;
@@ -25,9 +25,8 @@ const Gaga = ({ navigation, route }) => {
   const { source, data } = route.params;
   const [recentani, setrecentani] = useState([]);
 
-  const [loadrecent, setloadrecent] = useState(true);
-  const [loadforyou, setforyou] = useState(true);
-  const [loding, setloding] = useState(true);
+ const [gogoload,setgogoload ] =useState(true)
+  const [loding, setloding] = useState(false);
 
   const imageurls = [
     "https://media.tenor.com/Sy3vKl_rbMYAAAAi/laby-eating.gif",
@@ -46,40 +45,45 @@ const Gaga = ({ navigation, route }) => {
 
   // rr = randomurls();
 
-  const isfromrecentep = source === "recentep";
+  const isfromrecentep = source === "recent";
   const animeData = isfromrecentep
     ? route.params.recentep
     : route.params.result;
   const result = animeData;
 
   const recentanime = async (item) => {
-    setloding(true);
-    setrecentani([""]);
-    let hh = await fetchrecent(item);
-    let ll = await hh.results;
-    ll.length === 0 ? setloding(true) && recentanime() : setloding(false);
-
-    setrecentani(ll);
-    setCurrentPage(item);
-    setloding(false);
+    // setrecentani([""]);
+    // let hh = await fetchrecent(item);
+    // let ll = await hh.results;
+    // setrecentani(ll);
+    // setCurrentPage(item);
+    // setloding(false);
   };
 
   const trendinganime = async (item) => {
-    setloding(true);
     settrending([""]);
     let rr = await fetchtrending(item);
     let nn = await rr.results;
-
-    nn.length === 0 ? setloding(true) && trendinganime() : setloding(false);
-
     settrending(nn);
     setCurrentPage(item);
-    setloding(false);
+    // setloding(false);
+  };
+
+  const recentgogoanime = async (item) => {
+    setgogoload(true);
+    let gg = await fetchgogorecent(item);
+    let tt = await gg.results;
+    setCurrentPage(item);
+    setrecentani(tt);
+    setgogoload(false);
+    // console.log(tt);
   };
 
   useEffect(() => {
     {
-      isfromrecentep ? recentanime(currentPage) : trendinganime(currentPage);
+      isfromrecentep
+        ? recentgogoanime(currentPage)
+        : trendinganime(currentPage);
     }
   }, []);
 
@@ -134,7 +138,7 @@ const Gaga = ({ navigation, route }) => {
         </View>
 
         <ScrollView>
-          {loding ? (
+          {gogoload ? (
             <View
               style={{ height: height, width: width, justifyContent: "center" }}
             >
@@ -145,7 +149,7 @@ const Gaga = ({ navigation, route }) => {
                   width: 200,
                   alignSelf: "center",
                   resizeMode: "cover",
-                  marginBottom: height * 0.13,
+                  marginBottom: height * 0.1,
                 }}
               />
               <View
@@ -217,7 +221,9 @@ const Gaga = ({ navigation, route }) => {
                             end={{ x: 0.5, y: 1 }}
                           />
                         </View>
-                        <Text   numberOfLines={1}
+
+                        <Text
+                          numberOfLines={1}
                           style={{
                             color: "white",
                             position: "absolute",
@@ -226,11 +232,9 @@ const Gaga = ({ navigation, route }) => {
                             alignSelf: "center",
                           }}
                         >
-                         
-                          {item.title && item.title.english  ?
-                           item.title.english.substring(0,15) + '...'
-                            :
-                            item.title && item.title.romaji.substring(0,15) + '...'}                  
+                          {item.title.length > 15
+                            ? item.title.slice(0, 16) + "..."
+                            : item.title}
                         </Text>
                         <Text
                           style={{
@@ -238,9 +242,7 @@ const Gaga = ({ navigation, route }) => {
                             alignSelf: "center",
                             bottom: height * 0.025,
                           }}
-                        >
-                          rating - {item.rating ? item.rating : "NA"}
-                        </Text>
+                        ></Text>
                       </TouchableOpacity>
                     </Animatable.View>
                   );
@@ -285,7 +287,7 @@ const Gaga = ({ navigation, route }) => {
                             }}
                             onPress={() =>
                               isfromrecentep
-                                ? recentanime(item)
+                                ? recentgogoanime(item)
                                 : trendinganime(item)
                             }
                           >
