@@ -8,11 +8,6 @@ cater specifically to the avid anime community. This cutting-edge
 mobile app provides users with a seamless and immersive anime-watching experience on both Android and iOS devices.
 
 
-
-
-
-
-
 Technical Overview:
 
 Amniflix leverages the power of React Native, a popular JavaScript framework backed by Facebook,
