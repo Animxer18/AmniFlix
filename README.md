@@ -1,9 +1,9 @@
 # AmniFlix
 Anime Streaming app 
+‎ ‎ 
 ‎ 
+‎ ‎ 
 ‎ 
-‎ 
-
 𝗔𝗺𝗻𝗶𝗳𝗹𝗶𝘅: 𝗬𝗼𝘂𝗿 𝗥𝗲𝗮𝗰𝘁 𝗡𝗮𝘁𝗶𝘃𝗲-𝗣𝗼𝘄𝗲𝗿𝗲𝗱 𝗔𝗻𝗶𝗺𝗲 𝗦𝘁𝗿𝗲𝗮𝗺𝗶𝗻𝗴 𝗔𝗽𝗽
 
 Amniflix is an innovative and feature-rich anime streaming application built using the React Native framework, designed to
