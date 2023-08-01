@@ -17,6 +17,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import * as Animatable from "react-native-animatable";
 import { fetchrecent, fetchtrending } from "../API/api";
 import { fetchgogorecent } from "../API/gogo";
+import { gogotopair } from "../API/gogo";
 const Gaga = ({ navigation, route }) => {
   const height = Dimensions.get("window").height;
   const width = Dimensions.get("window").width;
@@ -61,12 +62,12 @@ const Gaga = ({ navigation, route }) => {
   };
 
   const trendinganime = async (item) => {
-    settrending([""]);
-    let rr = await fetchtrending(item);
-    let nn = await rr.results;
-    settrending(nn);
-    setCurrentPage(item);
-    // setloding(false);
+    // settrending([""]);
+    // let rr = await fetchtrending(item);
+    // let nn = await rr.results;
+    // settrending(nn);
+    // setCurrentPage(item);
+    // // setloding(false);
   };
 
   const recentgogoanime = async (item) => {
@@ -79,11 +80,20 @@ const Gaga = ({ navigation, route }) => {
     // console.log(tt);
   };
 
+  const fromgogotopair = async(item) => {
+    setgogoload(true)
+    const kk = await gogotopair(item);
+    const gg = await kk.results;
+    setCurrentPage(item);
+    settrending(gg);
+    // console.log(gg);
+    setgogoload(false)
+  }
   useEffect(() => {
     {
       isfromrecentep
         ? recentgogoanime(currentPage)
-        : trendinganime(currentPage);
+        : fromgogotopair(currentPage);
     }
   }, []);
 
@@ -288,7 +298,7 @@ const Gaga = ({ navigation, route }) => {
                             onPress={() =>
                               isfromrecentep
                                 ? recentgogoanime(item)
-                                : trendinganime(item)
+                                : fromgogotopair(item)
                             }
                           >
                             <View>
@@ -301,14 +311,19 @@ const Gaga = ({ navigation, route }) => {
                               >
                                 {item}
                               </Text>
+                              
                             </View>
                           </TouchableOpacity>
                         </View>
                       );
                     }}
                   />
+                
                 </View>
               </View>
+              <Text style={{marginTop: 10,color: 'white',fontSize: 14,alignSelf:'center'}}>
+                    Scroll Number buttons for more page
+                  </Text>
             </View>
           )}
         </ScrollView>

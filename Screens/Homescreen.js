@@ -118,7 +118,7 @@ const Homescreen = ({ navigation }) => {
 
   const [gogorecent, setgogorecent] = useState([]);
   const [gogotrending, setgogotrending] = useState([]);
-
+  const [trendingloading, settrendingloading] = useState(true);
   // for gogo anime only
 
   const getgogorecent = async () => {
@@ -130,10 +130,20 @@ const Homescreen = ({ navigation }) => {
   };
 
   const getgogotrending = async () => {
+    settrendingloading(true);
     let rr = await gogotopair();
     let nn = await rr.results;
     setgogotrending(nn);
+    settrendingloading(false);
   };
+
+  // const [loaded] = useFonts({
+  //   'rail': require('../assets/fonts/rail.ttf'),
+  // });
+
+  // if (!loaded) {
+  //   return null;
+  // }
 
   //FIXME:  array of the 10 for bottom page button
   const paginationArray = Array.from({ length: 10 }, (_, index) => index + 1);
@@ -170,7 +180,7 @@ const Homescreen = ({ navigation }) => {
               color: "red",
               textAlign: "center",
               alignSelf: "center",
-              //   fontFamily: "gg",
+              // fontFamily: "rail",
               fontWeight: "400",
             }}
           >
@@ -268,35 +278,50 @@ const Homescreen = ({ navigation }) => {
                   <Trendingposter />
                 </View>
               ) : ( */}
-              <View>
-                {/* <Text
+
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("SeeAll", {
+                    source: "trending",
+                    data: gogorecent,
+                  })
+                }
+                style={{
+                  width: width * 0.3,
+                  height: 17,
+                  position: "absolute",
+                  left: width * 0.84,
+                  // top: height * 0.02,
+                  // backgroundColor: 'red'
+                }}
+              >
+                <Text
                   style={{
-                    color: "white",
-                    marginTop: height * 0.01,
-                    fontSize: width * 0.065,
-                   
-                    // margin: width * 0.04,
+                    color: "#b3b3ff",
+                    //  fontFamily: "Inter-Black"
                   }}
                 >
-                  SeeAll
-                </Text> */}
-                <Carousel
-                  data={gogotrending}
-                  renderItem={({ item }) => {
-                    return (
-                      <Animatable.View
-                        key={item}
-                        animation="fadeInRight"
-                        useNativeDriver
-                        delay={0.5}
-                      >
-                        <TouchableOpacity
-                          onPress={() =>
-                            navigation.navigate("Details", { item })
-                          }
-                        >
-                          <Image
-                            source={{ uri: item.image }}
+                  see all
+                </Text>
+                <Ionicons
+                  name="arrow-forward-sharp"
+                  size={18}
+                  color="#b3b3ff"
+                  style={{
+                    position: "absolute",
+                    left: width * 0.1,
+                  }}
+                />
+              </TouchableOpacity>
+              <View style={{ marginTop: height * 0.02 }}>
+                {/* check the main homescreen slider  */}
+                {trendingloading ? (
+                  <View>
+                    <Carousel
+                      data={paginationArray}
+                      renderItem={({ item }) => {
+                        return (
+                          <View
                             style={{
                               width: width * 0.52,
                               height: height * 0.37,
@@ -305,31 +330,69 @@ const Homescreen = ({ navigation }) => {
                               backgroundColor: "grey",
                             }}
                           />
-                          <Text
-                            numberOfLines={2}
-                            style={{
-                              color: "white",
-                              textAlign: "center",
-                              marginTop: height * 0.02,
-                              fontSize: 17,
-                            }}
+                        );
+                      }}
+                      firstItem={1}
+                      inactiveSlideScale={0.86}
+                      sliderWidth={width}
+                      itemWidth={width * 0.55}
+                      slideStyle={{ display: "flex", alignItems: "center" }}
+                    />
+                  </View>
+                ) : (
+                  <View>
+                    <Carousel
+                      data={gogotrending}
+                      renderItem={({ item }) => {
+                        return (
+                          <Animatable.View
+                            key={item}
+                            animation="fadeInDown"
+                            useNativeDriver
+                            delay={0.5}
                           >
-                            {item.title.length > 15
-                              ? item.title.slice(0, 20) + "..."
-                              : item.title}
-                          </Text>
-                        </TouchableOpacity>
-                      </Animatable.View>
-                    );
-                  }}
-                  firstItem={1}
-                  // loop={true}
-                  inactiveSlideScale={0.86}
-                  inactiveSlideOpacity={0.4}
-                  sliderWidth={width}
-                  itemWidth={width * 0.55}
-                  slideStyle={{ display: "flex", alignItems: "center" }}
-                />
+                            <TouchableOpacity
+                              onPress={() =>
+                                navigation.navigate("Details", { item })
+                              }
+                            >
+                              <Image
+                                source={{ uri: item.image }}
+                                style={{
+                                  width: width * 0.52,
+                                  height: height * 0.37,
+                                  borderRadius: 12,
+                                  marginTop: 30,
+                                  backgroundColor: "grey",
+                                }}
+                              />
+                              <Text
+                                numberOfLines={2}
+                                style={{
+                                  color: "white",
+                                  textAlign: "center",
+                                  marginTop: height * 0.02,
+                                  fontSize: 17,
+                                }}
+                              >
+                                {item.title.length > 15
+                                  ? item.title.slice(0, 20) + "..."
+                                  : item.title}
+                              </Text>
+                            </TouchableOpacity>
+                          </Animatable.View>
+                        );
+                      }}
+                      firstItem={1}
+                      // loop={true}
+                      inactiveSlideScale={0.86}
+                      inactiveSlideOpacity={0.4}
+                      sliderWidth={width}
+                      itemWidth={width * 0.55}
+                      slideStyle={{ display: "flex", alignItems: "center" }}
+                    />
+                  </View>
+                )}
               </View>
               {/* )} */}
 
