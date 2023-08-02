@@ -11,6 +11,7 @@ import {
 import React, { useState, useCallback, useEffect } from "react";
 import { TextInput } from "react-native-gesture-handler";
 import debounce from "lodash.debounce";
+import * as Animatable from "react-native-animatable";
 
 export default function Searchscreen({ navigation }) {
   const width = Dimensions.get("window").width;
@@ -131,78 +132,85 @@ export default function Searchscreen({ navigation }) {
             <View>
               {result.map((item, index) => {
                 return (
-                  <View>
-                    <TouchableOpacity
-                      onPress={() => navigation.navigate("Details", { item })}
-                    >
-                      <View
-                        style={{
-                          backgroundColor: "#12181c",
-                          marginBottom: 20,
-                          width: width * 0.96,
-                          alignSelf: "center",
-                          marginTop: 10,
-                          borderRadius: 13,
-                          height: height * 0.32,
-                          justifyContent: "center",
-                        }}
+                  <Animatable.View
+                    animation="fadeInUp"
+                    useNativeDriver
+                    key={item}
+                    delay={2}
+                  >
+                    <View>
+                      <TouchableOpacity
+                        onPress={() => navigation.navigate("Details", { item })}
                       >
-                        <Image
-                          source={{ uri: item.image }}
-                          style={{
-                            height: height * 0.27,
-                            width: width * 0.36,
-                            marginStart: width * 0.07,
-                            borderRadius: height * 0.02,
-                          }}
-                        />
                         <View
                           style={{
-                            position: "absolute",
-                            top: height * 0.04,
-                            // backgroundColor: "red",
-                            left: width * 0.49,
-                            height: height * 0.1,
-                            width: width * 0.45,
+                            backgroundColor: "#12181c",
+                            marginBottom: 20,
+                            width: width * 0.96,
+                            alignSelf: "center",
+                            marginTop: 10,
+                            borderRadius: 13,
+                            height: height * 0.32,
+                            justifyContent: "center",
                           }}
                         >
-                          <Text
+                          <Image
+                            source={{ uri: item.image }}
                             style={{
-                              color: "white",
-                              fontSize: 18,
-                            }}
-                          >
-                            {item.title}
-                          </Text>
-                          <View
-                            style={{
-                              backgroundColor: "grey",
-                              height: 1,
-                              marginTop: height * 0.02,
+                              height: height * 0.27,
+                              width: width * 0.36,
+                              marginStart: width * 0.07,
+                              borderRadius: height * 0.02,
                             }}
                           />
-                          <Text
+                          <View
                             style={{
-                              color: "white",
-                              fontSize: 17,
-                              marginTop: height * 0.02,
+                              position: "absolute",
+                              top: height * 0.04,
+                              // backgroundColor: "red",
+                              left: width * 0.49,
+                              height: height * 0.1,
+                              width: width * 0.45,
                             }}
                           >
-                            {item.releaseDate}
-                          </Text>
-                          <Text
-                            style={{
-                              color: "white",
-                              fontSize: 17,
-                              marginTop: height * 0.02,
-                            }}
-                          >
-                            SubOrDub - {item.subOrDub}
-                          </Text>
+                            <Text
+                              style={{
+                                color: "white",
+                                fontSize: 18,
+                              }}
+                            >
+                              {item.title}
+                            </Text>
+                            <View
+                              style={{
+                                backgroundColor: "grey",
+                                height: 1,
+                                marginTop: height * 0.02,
+                              }}
+                            />
+                            <Text
+                              style={{
+                                color: "white",
+                                fontSize: 17,
+                                marginTop: height * 0.02,
+                              }}
+                            >
+                              {item.releaseDate}
+                            </Text>
+                            <Text
+                              style={{
+                                color: "white",
+                                fontSize: 17,
+                                marginTop: height * 0.02,
+                              }}
+                            >
+                              SubOrDub - {item.subOrDub}
+                            </Text>
+                          </View>
                         </View>
-                      </View>
-                    </TouchableOpacity>
-                  </View>
+                      </TouchableOpacity>
+                    </View>
+                  </Animatable.View>
                 );
               })}
             </View>

@@ -15,7 +15,6 @@ import StreamingPage from "./Screens/StreamingPage";
 import Gaga from "./Screens/gaga";
 
 
-
 const Stack = createStackNavigator();
 
 export default function App() {

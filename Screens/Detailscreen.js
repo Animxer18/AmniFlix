@@ -9,6 +9,7 @@ import {
   FlatList,
 } from "react-native";
 import React, { useEffect, useState } from "react";
+import * as Animatable from "react-native-animatable";
 
 // icons for project
 import { Ionicons } from "@expo/vector-icons";
@@ -63,6 +64,7 @@ const Detailscreen = ({ route, navigation }) => {
             style={{
               height: height,
               width: width,
+              flex: 1,
               justifyContent: "center",
               backgroundColor: "#181a20",
             }}
@@ -125,20 +127,30 @@ const Detailscreen = ({ route, navigation }) => {
                 start={{ x: 0.5, y: 0 }}
                 end={{ x: 0.5, y: 1 }}
               />
-              <Image
-                source={{ uri: data.image }}
+              <Animatable.View
+                key={data.image}
+                animation="fadeInDown"
+                useNativeDriver
+                delay={1}
                 style={{
-                  width: width * 0.5,
-                  height: height * 0.4,
                   position: "absolute",
                   alignSelf: "center",
-                  borderRadius: 15,
-                  marginTop: 40,
-                  borderColor: "black",
-                  borderWidth: 0,
                 }}
-              />
-
+              >
+                <Image
+                  source={{ uri: data.image }}
+                  style={{
+                    width: width * 0.5,
+                    height: height * 0.4,
+                    position: "absolute",
+                    alignSelf: "center",
+                    borderRadius: 15,
+                    marginTop: 40,
+                    borderColor: "black",
+                    borderWidth: 0,
+                  }}
+                />
+              </Animatable.View>
               <View
                 style={{
                   backgroundColor: "#b3b3ff",
@@ -175,6 +187,7 @@ const Detailscreen = ({ route, navigation }) => {
                 >
                   {data.title || data.title?.english || data.title?.romaji}
                 </Text>
+                
                 <Text
                   style={{
                     color: "grey",
@@ -186,6 +199,13 @@ const Detailscreen = ({ route, navigation }) => {
                 </Text>
               </View>
 
+
+              {/* <Animatable.View
+          
+          animation="fadeInRight"
+          useNativeDriver
+          delay={1}
+        > */}
               <Text
                 style={{
                   color: "white",
@@ -211,8 +231,7 @@ const Detailscreen = ({ route, navigation }) => {
               >
                 {data.description}
               </Text>
-              
-
+              {/* </Animatable.View> */}
               <Text
                 style={{
                   color: "white",
@@ -224,7 +243,6 @@ const Detailscreen = ({ route, navigation }) => {
                   width: width * 0.88,
                 }}
               >
-               
                 Watch Episodes
               </Text>
               <View>
@@ -239,81 +257,87 @@ const Detailscreen = ({ route, navigation }) => {
                     renderItem={({ item }) => {
                       return (
                         <View>
-                          <TouchableOpacity
-                            onPress={() =>
-                              navigation.navigate("Link", { item, data })
-                            }
+                          <Animatable.View
+                            animation="fadeInUp"
+                            useNativeDriver
+                            delay={2}
                           >
-                            <View
-                              style={{
-                                height: height * 0.13,
-                                alignSelf: "center",
-                                flexDirection: "row",
-                                borderRadius: 14,
-                                backgroundColor: "#12181c",
-                                marginBottom: 20,
-                                width: width * 0.9,
-                              }}
+                            <TouchableOpacity
+                              onPress={() =>
+                                navigation.navigate("Link", { item, data})
+                              }
                             >
-                              <Image
-                                source={{ uri: data.image }}
-                                style={{
-                                  height: height * 0.13,
-                                  resizeMode: "cover",
-                                  borderRadius: 14,
-                                  width: width * 0.42,
-                                  opacity: 0.6,
-                                }}
-                              />
-                              <Ionicons
-                                name="play-sharp"
-                                size={40}
-                                color="white"
-                                style={{
-                                  position: "absolute",
-                                  alignSelf: "center",
-                                  marginStart: "20%",
-                                }}
-                              />
-
                               <View
                                 style={{
-                                  width: width * 0.4,
-                                  marginStart: width * 0.04,
-                                  marginTop: height * 0.02,
-
-                                  height: height * 0.065,
+                                  height: height * 0.13,
+                                  alignSelf: "center",
+                                  flexDirection: "row",
+                                  borderRadius: 14,
+                                  backgroundColor: "#12181c",
+                                  marginBottom: 20,
+                                  width: width * 0.9,
                                 }}
                               >
-                                <Text
+                                <Image
+                                  source={{ uri: data.image }}
                                   style={{
-                                    color: "white",
-                                    fontSize: 17,
-                                    marginTop: height * 0.0,
+                                    height: height * 0.13,
+                                    resizeMode: "cover",
+                                    borderRadius: 14,
+                                    width: width * 0.42,
+                                    opacity: 0.6,
                                   }}
-                                >
-                                  Episodes {item.number}
-                                </Text>
+                                />
+                                <Ionicons
+                                  name="play-sharp"
+                                  size={40}
+                                  color="white"
+                                  style={{
+                                    position: "absolute",
+                                    alignSelf: "center",
+                                    marginStart: "20%",
+                                  }}
+                                />
 
-                                <Text
-                                  numberOfLines={1}
+                                <View
                                   style={{
-                                    color: "white",
-                                    fontSize: 13,
-                                    color: "grey",
-                                    marginTop: height * 0.01,
+                                    width: width * 0.4,
+                                    marginStart: width * 0.04,
+                                    marginTop: height * 0.02,
+
+                                    height: height * 0.065,
                                   }}
                                 >
-                                  {item.title === null ? (
-                                    <Text>NotAvailable</Text>
-                                  ) : (
-                                    item.title
-                                  )}
-                                </Text>
-                                <FlatList />
+                                  <Text
+                                    style={{
+                                      color: "white",
+                                      fontSize: 17,
+                                      marginTop: height * 0.0,
+                                    }}
+                                  >
+                                    Episodes {item.number}
+                                  </Text>
+
+                                  <Text
+                                    numberOfLines={1}
+                                    style={{
+                                      color: "white",
+                                      fontSize: 13,
+                                      color: "grey",
+                                      marginTop: height * 0.01,
+                                    }}
+                                  >
+                                    {item.title === null ? (
+                                      <Text>NotAvailable</Text>
+                                    ) : (
+                                      item.title
+                                    )}
+                                  </Text>
+                                  <FlatList />
+                                </View>
                               </View>
-                            </View>
-                          </TouchableOpacity>
+                            </TouchableOpacity>
+                          </Animatable.View>
                         </View>
                       );
                     }}
@@ -336,12 +360,11 @@ const Detailscreen = ({ route, navigation }) => {
 
               <View style={{ height: 70, marginTop: 20 }}>
                 <Text style={{ color: "white", textAlign: "center" }}>
-                  App is under Devlopment Pls Stay on
+                Currently Under Development - In Progress
                 </Text>
               </View>
-           
+              
             </View>
-          
           </View>
         )}
       </ScrollView>

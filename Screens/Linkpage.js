@@ -16,7 +16,8 @@ const Linkpage = ({ navigation, route }) => {
   const [loding ,setloding] =useState(true);
   // getting a item from a detail scrennn moreless geting a ep id from detail
   const selected = route.params.item;
-  
+  const pre = route.params.data.image;
+
   // console.log("Console is fire")
 
   const geteplinks = async (kk) => {
@@ -27,35 +28,28 @@ const Linkpage = ({ navigation, route }) => {
     // console.log(ll);
   };
 
+  
   useEffect(() => {
     geteplinks(selected.id);
   }, [selected.id]);
 
   return (
+    
     <View
       style={{
         flex: 1,
+        height: height,
         backgroundColor: "white",
-        justifyContent: "center",
+        // justifyContent: "center",
         backgroundColor: "black",
       }}
     >
-      <Image
-        source={{ uri: selected.image }}
-        style={{
-          height: height,
-          width: width,
-          resizeMode: "cover",
-          opacity: 0.8,
-          position: "absolute",
-        }}
-      />
-
-{ loding ? (
+      { loding ? (
  <View
  style={{
    height: height,
    width: width,
+   flex: 1,
    justifyContent: "center",
    backgroundColor: "#181a20",
  }}
@@ -88,6 +82,19 @@ style={{
  </View>
 </View>
 ): (
+  <View>
+      <Image
+        source={{ uri: pre }}
+        style={{
+          height: height,
+          width: width,
+          resizeMode: "cover",
+          opacity: 0.8,
+          position: "absolute",
+        }}
+      />
+
+
 
       <View
         style={{
@@ -97,6 +104,7 @@ style={{
           borderRadius: 13,
           borderWidth: 2,
           borderColor: "white",
+          marginTop: height*0.1
         }}
       >
   
@@ -129,6 +137,7 @@ style={{
                     backgroundColor: "#b3b3ff",
                     width: width * 0.7,
                     borderRadius: 20,
+                    
                     justifyContent: "center",
                   }}
                 >
@@ -138,7 +147,7 @@ style={{
                       color: "black",
                       alignSelf: "center",
                       fontSize: 20,
-                      
+                      fontWeight: '700'
                     }}
                   >
                     {item.quality}
@@ -151,9 +160,17 @@ style={{
         />
       )}
         </View>
- 
+
       </View>
-     )} 
+      
+   
+     <View>
+     <Text style={{color: 'white',fontSize: 15,fontWeight: '700',textAlign: 'center',marginTop: 20}}>
+     Currently Under Development - In Progress
+    </Text>
+    </View>
+    </View>
+)}
        </View>
        
 

@@ -10,7 +10,7 @@ import {
   Image,
   ActivityIndicator,
   StatusBar,
-  Modal,
+  Alert,
 } from "react-native";
 import React, { useEffect, useState, useRef, useCallback } from "react";
 // for all apis
@@ -48,7 +48,7 @@ const height = Dimensions.get("window").height;
 
 // import gogo anime apis
 import { gogoinfo, gogotopair, fetchgogorecent } from "../API/gogo";
-
+import Modal from "react-native-modal";
 // starting of the code execution
 
 const Homescreen = ({ navigation }) => {
@@ -119,6 +119,14 @@ const Homescreen = ({ navigation }) => {
   const [gogorecent, setgogorecent] = useState([]);
   const [gogotrending, setgogotrending] = useState([]);
   const [trendingloading, settrendingloading] = useState(true);
+
+  const [sidedrawer, setsidedrawer] = useState(false);
+
+  const togglemodel = () => {
+    setsidedrawer(!sidedrawer);
+    console.log(sidedrawer);
+  };
+
   // for gogo anime only
 
   const getgogorecent = async () => {
@@ -189,7 +197,7 @@ const Homescreen = ({ navigation }) => {
 
           {/* TODO: hamberger menu icon at the top  */}
           <TouchableOpacity
-            onPress={() => console.warn("Under Devlopment ")}
+            onPress={() => togglemodel()}
             style={{
               left: width * 0.06,
               top: height * 0.026,
@@ -273,6 +281,41 @@ const Homescreen = ({ navigation }) => {
                 ))}
               </View> */}
             <View>
+              <Modal isVisible={sidedrawer}  >
+                <View
+                  style={{
+                    height: height * 0.3,
+                    borderRadius: 15,
+                    borderColor: "white",
+                    borderWidth: 1,
+                    width: width * 0.6,
+                    backgroundColor: "#181a20",
+                    alignSelf: "center",
+                    
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "white",
+                      textAlign: "center",
+                      marginTop: 30,
+                      width: width*0.5,
+                      fontSize: 15,
+                      alignSelf: 'center',
+                    
+                    }}
+                  >
+                    
+                    The app is currently under development. Exciting new features are coming soon! For more information, please contact the developer, Harshil. Thank you for your patience and support!                  </Text>
+                  <TouchableOpacity
+                    onPress={togglemodel}
+                    style={{ backgroundColor: "#b3b3ff", height: height * 0.06,
+                  width: width*0.4,alignSelf: 'center',position: 'absolute',bottom: 30,borderRadius: 30,justifyContent: 'center' }}
+                  >
+                    <Text style={{color: 'black',textAlign: 'center',fontSize: 19,fontWeight: '600'}}>Close</Text>
+                  </TouchableOpacity>
+                </View>
+              </Modal>
               {/* {loding ? (
                 <View>
                   <Trendingposter />
